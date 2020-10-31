@@ -43,6 +43,5 @@ do
     popd
   else
     echo "Already built for ${ABI}"
-    exit 0
   fi
 done
