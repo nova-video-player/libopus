@@ -24,8 +24,9 @@ API_LEVEL=23
 
 for ABI in armeabi-v7a arm64-v8a x86 x86_64
 do
-  if [ ! -d "build-${ABI}" ]
+  if [ ! -f "lib/${ABI}/libopus.so" ]
   then
+    rm -rf build-${ABI}
     mkdir -p build-${ABI}
     pushd build-${ABI}
     ${CMAKE_PATH}/bin/cmake \
@@ -45,5 +46,3 @@ do
     exit 0
   fi
 done
-
-rm -rf opus
