@@ -38,6 +38,7 @@ do
       -DCMAKE_BUILD_TYPE=Debug  \
       -DCMAKE_TOOLCHAIN_FILE=${NDK_PATH}/build/cmake/android.toolchain.cmake \
       -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+      -DCMAKE_C_FLAGS="-s" \
       ../opus
     ninja
     popd
