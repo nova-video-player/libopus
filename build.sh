@@ -1,6 +1,13 @@
 #!/bin/bash
 
-[ ! -d "opus" ] && git clone https://github.com/xiph/opus.git
+if [ ! -d "opus" ]
+then
+  git clone https://github.com/xiph/opus.git
+  # get a fixed version after 1.3.1 to get cmake support
+  cd opus
+  git checkout fad505e8ed6190062515668e3a480ada583e1637
+  cd ..
+fi
 
 if [ ! -d "${ANDROID_HOME}/cmake" ]
 then
