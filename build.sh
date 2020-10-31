@@ -20,7 +20,7 @@ echo CMAKE_PATH is ${CMAKE_PATH}
 NDK_PATH=$(ls -d ${ANDROID_HOME}/ndk/* | sort -V | tail -n 1)
 echo NDK_PATH is ${NDK_PATH}
 
-API_LEVEL=23
+API_LEVEL=21
 
 for ABI in armeabi-v7a arm64-v8a x86 x86_64
 do
