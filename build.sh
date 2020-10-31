@@ -15,11 +15,7 @@ then
   ${ANDROID_HOME}/tools/bin/sdkmanager --install "${cmake}"
 fi
 
-if [ ! -d "${ANDROID_HOME}/ndk" ]
-then
-  # ndk-bundle is special, no need of version number
-  ${ANDROID_HOME}/tools/bin/sdkmanager --install ndk-bundle
-fi
+[ ! -d "${ANDROID_HOME}/ndk" ] && ${ANDROID_HOME}/tools/bin/sdkmanager --install ndk-bundle
 
 # latest cmake and ndk
 CMAKE_PATH=$(ls -d ${ANDROID_HOME}/cmake/* | sort -V | tail -n 1)
