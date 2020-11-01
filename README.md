@@ -1,4 +1,4 @@
-# libopus
+# opus-android-builder
 
 A simple shell script to cross-compile libopus project for Android targets.
 
