@@ -12,10 +12,10 @@ fi
 if [ ! -d "${ANDROID_HOME}/cmake" ]
 then
   cmake=$(pkg="cmake"; ${ANDROID_HOME}/tools/bin/sdkmanager --list | grep ${pkg} | sed "s/^.*\($pkg;[0-9\.]*\).*$/\1/g" | head -n 1)
-  ${ANDROID_HOME}/tools/bin/sdkmanager --install "${cmake}"
+  ${ANDROID_HOME}/tools/bin/sdkmanager "${cmake}"
 fi
 
-[ ! -d "${ANDROID_HOME}/ndk" ] && ${ANDROID_HOME}/tools/bin/sdkmanager --install ndk-bundle
+[ ! -d "${ANDROID_HOME}/ndk" ] && ${ANDROID_HOME}/tools/bin/sdkmanager ndk-bundle
 
 # latest cmake and ndk
 CMAKE_PATH=$(ls -d ${ANDROID_HOME}/cmake/* | sort -V | tail -n 1)
