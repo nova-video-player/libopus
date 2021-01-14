@@ -9,19 +9,23 @@ then
   cd ..
 fi
 
-if [ ! -d "${ANDROID_HOME}/cmake" ]
-then
-  cmake=$(pkg="cmake"; ${ANDROID_HOME}/tools/bin/sdkmanager --list | grep ${pkg} | sed "s/^.*\($pkg;[0-9\.]*\).*$/\1/g" | head -n 1)
-  ${ANDROID_HOME}/tools/bin/sdkmanager "${cmake}"
-fi
-
-[ ! -d "${ANDROID_HOME}/ndk" ] && ${ANDROID_HOME}/tools/bin/sdkmanager ndk-bundle
-
-# latest cmake and ndk
-CMAKE_PATH=$(ls -d ${ANDROID_HOME}/cmake/* | sort -V | tail -n 1)
-echo CMAKE_PATH is ${CMAKE_PATH}
-NDK_PATH=$(ls -d ${ANDROID_HOME}/ndk/* | sort -V | tail -n 1)
+# android sdk directory is changing
+[ -n "${ANDROID_HOME}" ] && androidSdk=${ANDROID_HOME}
+[ -n "${ANDROID_SDK_ROOT}" ] && androidSdk=${ANDROID_SDK_ROOT}
+# multiple sdkmanager paths
+export PATH=${androidSdk}/cmdline-tools/tools/bin:${androidSdk}/tools/bin:$PATH
+[ ! -d "${androidSdk}/ndk-bundle" -a ! -d "${androidSdk}/ndk" ] && sdkmanager ndk-bundle
+[ -d "${androidSdk}/ndk" ] && NDK_PATH=$(ls -d ${androidSdk}/ndk/* | sort -V | tail -n 1)
+[ -d "${androidSdk}/ndk-bundle" ] && NDK_PATH=${androidSdk}/ndk-bundle
 echo NDK_PATH is ${NDK_PATH}
+if [ ! -d "${androidSdk}/cmake" ]
+then
+  cmake=$(pkg="cmake"; sdkmanager --list | grep ${pkg} | sed "s/^.*\($pkg;[0-9\.]*\).*$/\1/g" | head -n 1)
+  sdkmanager "${cmake}"
+fi
+# latest cmake
+[ -d "${androidSdk}/cmake" ] && CMAKE_PATH=$(ls -d ${androidSdk}/cmake/* | sort -V | tail -n 1)
+echo CMAKE_PATH is ${CMAKE_PATH}
 
 API_LEVEL=21
 
