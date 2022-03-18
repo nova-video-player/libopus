@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./install.sh
+source ./setup.sh
 
 if [ ! -d "opus" ]
 then
