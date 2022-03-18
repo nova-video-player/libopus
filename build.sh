@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./install.sh
+
 if [ ! -d "opus" ]
 then
   git clone https://github.com/xiph/opus.git
@@ -8,30 +10,6 @@ then
   git checkout fad505e8ed6190062515668e3a480ada583e1637
   cd ..
 fi
-
-# android sdk directory is changing
-[ -n "${ANDROID_HOME}" ] && androidSdk=${ANDROID_HOME}
-[ -n "${ANDROID_SDK_ROOT}" ] && androidSdk=${ANDROID_SDK_ROOT}
-# multiple sdkmanager paths
-export PATH=${androidSdk}/cmdline-tools/latest/bin:${androidSdk}/cmdline-tools/bin:$PATH
-NDKVER=23
-if [ ! -d "${androidSdk}/ndk-bundle" -a ! -d "${androidSdk}/ndk" ]
-then
-  ndk=$(pkg="ndk;$NDKVER"; sdkmanager --list | grep ${pkg} | sed "s/^.*\($pkg\.[0-9\.]*\) .*$/\1/g" | tail -n 1)
-  yes | sdkmanager "${ndk}" > /dev/null
-  echo NDK $ndk installed
-fi
-[ -d "${androidSdk}/ndk-bundle" ] && NDK_PATH=${androidSdk}/ndk-bundle
-[ -d "${androidSdk}/ndk" ] && NDK_PATH=$(ls -d ${androidSdk}/ndk/* | sort -V | tail -n 1)
-echo NDK_PATH is ${NDK_PATH}
-if [ ! -d "${androidSdk}/cmake" ]
-then
-  cmake=$(pkg="cmake"; sdkmanager --list | grep ${pkg} | sed "s/^.*\($pkg;[0-9\.]*\).*$/\1/g" | head -n 1)
-  sdkmanager "${cmake}"
-fi
-# latest cmake
-[ -d "${androidSdk}/cmake" ] && CMAKE_PATH=$(ls -d ${androidSdk}/cmake/* | sort -V | tail -n 1)
-echo CMAKE_PATH is ${CMAKE_PATH}
 
 API_LEVEL=21
 
