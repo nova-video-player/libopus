@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./setup.sh
+source ../../AVP/android-setup-light.sh
 
 if [ ! -d "opus" ]
 then
