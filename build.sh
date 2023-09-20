@@ -7,7 +7,7 @@ then
   git clone https://github.com/xiph/opus.git
   # get a fixed version after 1.3.1 to get cmake support
   cd opus
-  git checkout bce1f392353d72d77d543bb2069a044ae1045e9d
+  git checkout 9fc8fc4cf432640f284113ba502ee027268b0d9f
   cd ..
 fi
 
